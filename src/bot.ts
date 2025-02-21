@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits } from 'discord.js';
+import { Client, Events, GatewayIntentBits } from 'discord.js';
 import { SignalService } from './services/signal.service';
 
 export class Bot {
@@ -18,11 +18,11 @@ export class Bot {
   }
 
   private setupEventHandlers(): void {
-    this.client.on('ready', () => {
+    this.client.on(Events.ClientReady, () => {
       console.log(`Logged in as ${this.client.user?.tag}`);
     });
 
-    this.client.on('voiceStateUpdate', async (oldState, newState) => {
+    this.client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
       if (!oldState.channelId && newState.channelId) {
         const user = newState.member?.user;
         const channel = newState.channel;
