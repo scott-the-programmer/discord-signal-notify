@@ -71,6 +71,9 @@ DISCORD_TOKEN=YourDiscordToken
 SIGNAL_PHONE_NUMBER=+123yourphonenumber
 SIGNAL_GROUP_ID=your-signal
 SIGNAL_CLI_PATH=/path/to/signal-cli
+
+# Optional: Channel to ignore (won't send notifications when users join this channel)
+# IGNORED_CHANNEL_ID=1234567890123456789
 ```
 
 2. Install dependencies and run the bot
