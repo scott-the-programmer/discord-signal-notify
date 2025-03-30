@@ -4,6 +4,7 @@ import { SignalService } from './services/signal.service';
 export class Bot {
   private client: Client;
   private signalService: SignalService;
+  private ignoredChannelId: string | null;
 
   constructor() {
     this.client = new Client({
@@ -14,6 +15,7 @@ export class Bot {
     });
 
     this.signalService = new SignalService();
+    this.ignoredChannelId = process.env.IGNORED_CHANNEL_ID || null;
     this.setupEventHandlers();
   }
 
@@ -28,6 +30,12 @@ export class Bot {
         const channel = newState.channel;
 
         if (!user || !channel) return;
+        
+        // Skip notification if this is the ignored channel
+        if (this.ignoredChannelId && newState.channelId === this.ignoredChannelId) {
+          console.log(`Ignoring join notification for channel ID: ${this.ignoredChannelId}`);
+          return;
+        }
 
         const emoji = this.getRandomJoinEmoji();
         const message = `${emoji} ${user.username} joined voice channel "${channel.name}" ${emoji}. You should join them!`;
