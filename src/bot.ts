@@ -34,6 +34,8 @@ export class Bot {
         const channel = newState.channel;
 
         if (!user || !channel) return;
+
+        console.log(`User ${user.username} joined channel "${newState.channelId}" - ${channel.name}`);
         
         // Skip notification if this is the ignored channel
         if (this.ignoredChannelId && newState.channelId === this.ignoredChannelId) {
@@ -57,8 +59,7 @@ export class Bot {
   private getRandomJoinEmoji(): string {
     const emojis = [
       '🎮', '🎧', '🎵', '🎙️', '🔊', '👋', '💫', '✨', 
-      '🚀', '🌟', '🎪', '🎯', '🎲', '🎨', '🎭', '🎪',
-      '🎉', '🎊', '🎈', '🎁', '🎤', '🎼', '🎷', '🎸',
+      '🚀', '🌟', '🎪', '🎯', '🎲', '🎨', '🎭', '🎪'
     ];
     return emojis[Math.floor(Math.random() * emojis.length)];
   }
