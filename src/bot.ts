@@ -22,6 +22,10 @@ export class Bot {
   private setupEventHandlers(): void {
     this.client.on(Events.ClientReady, () => {
       console.log(`Logged in as ${this.client.user?.tag}`);
+
+      if(this.ignoredChannelId) {
+        console.log(`Ignoring join notifications for channel ID: ${this.ignoredChannelId}`);
+      }
     });
 
     this.client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
@@ -53,7 +57,8 @@ export class Bot {
   private getRandomJoinEmoji(): string {
     const emojis = [
       '🎮', '🎧', '🎵', '🎙️', '🔊', '👋', '💫', '✨', 
-      '🚀', '🌟', '🎪', '🎯', '🎲', '🎨', '🎭', '🎪'
+      '🚀', '🌟', '🎪', '🎯', '🎲', '🎨', '🎭', '🎪',
+      '🎉', '🎊', '🎈', '🎁', '🎤', '🎼', '🎷', '🎸',
     ];
     return emojis[Math.floor(Math.random() * emojis.length)];
   }
